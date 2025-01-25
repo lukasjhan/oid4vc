@@ -1,6 +1,6 @@
 {
-  "name": "sd-jwt-vcdm",
-  "description": "sd-jwt vcdm implementation in typescript",
+  "name": "@oid4vc/core",
+  "description": "OpenID4VC implementation in typescript",
   "scripts": {
     "build": "lerna run build --stream",
     "lint": "biome lint ./packages",
@@ -13,9 +13,11 @@
     "publish:next": "lerna publish --no-private --conventional-prerelease --force-publish --canary --no-git-tag-version --include-merged-tags --preid next --pre-dist-tag next --yes"
   },
   "keywords": [
-    "sd-jwt",
+    "openid",
     "vcdm",
-    "jwt"
+    "jwt",
+    "sd-jwt",
+    "mdl"
   ],
   "author": "Lukas.J.Han <lukas.j.han@gmail.com>",
   "license": "Apache-2.0",

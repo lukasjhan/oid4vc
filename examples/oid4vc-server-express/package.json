@@ -1,5 +1,5 @@
 {
-  "name": "vcdm-example",
+  "name": "@oid4vc/oid4vc-server-express-example",
   "private": true,
   "version": "0.0.0",
   "description": "",
