@@ -5,13 +5,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "vcdm": "tsx vcdm.ts",
-    "decode": "tsx decode.ts"
+    "start": "tsx index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "tsx": "^4.19.2"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "@oid4vc/oid4vci": "workspace:*"
   }
 }

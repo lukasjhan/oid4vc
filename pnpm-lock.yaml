@@ -43,6 +43,13 @@ importers:
         version: 1.6.0(@types/node@20.12.12)(jsdom@24.1.0)
 
   examples/oid4vc-server-express:
+    dependencies:
+      '@oid4vc/oid4vci':
+        specifier: workspace:*
+        version: link:../../packages/oid4vci
+      express:
+        specifier: ^4.21.2
+        version: 4.21.2
     devDependencies:
       tsx:
         specifier: ^4.19.2
