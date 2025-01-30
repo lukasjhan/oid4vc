@@ -9,7 +9,7 @@ const middleware = new Oid4VciMiddleware({
   },
 });
 
-app.use('/openid4vci', middleware.getRouter());
+app.use(middleware.getRouter());
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
