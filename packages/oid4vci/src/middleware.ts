@@ -1,5 +1,5 @@
 import { IssuerMetadata, Oid4VciConfig } from './type';
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 
 export class Oid4VciMiddleware {
   private router: Router;
