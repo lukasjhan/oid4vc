@@ -18,7 +18,7 @@ export type Oid4VciConfig = {
   /**
    * The URL of the Credential Issuer's Credential Endpoint
    * If not provided, use default endpoint: /credential
-   * @example "https://issuer.example.com/credential"
+   * @example "/credential"
    * @optional
    */
   credential_endpoint?: string;
@@ -27,7 +27,7 @@ export type Oid4VciConfig = {
    * The URL of the Credential Issuer's Nonce Endpoint
    * If not provided, the nonce endpoint is not included
    * If true, the default nonce endpoint is used: /nonce
-   * @example "https://issuer.example.com/nonce"
+   * @example "/nonce"
    * @optional
    */
   nonce_endpoint?: string | true;
@@ -36,7 +36,7 @@ export type Oid4VciConfig = {
    * The URL of the Credential Issuer's Deferred Credential Endpoint
    * If not provided, the deferred credential endpoint is not included
    * If true, the default deferred credential endpoint is used: /deferred-credential
-   * @example "https://issuer.example.com/deferred-credential"
+   * @example "/deferred-credential"
    * @optional
    */
   deferred_credential_endpoint?: string | true;
@@ -45,7 +45,7 @@ export type Oid4VciConfig = {
    * The URL of the Credential Issuer's Notification Endpoint
    * If not provided, the notification endpoint is not included
    * If true, the default notification endpoint is used: /notification
-   * @example "https://issuer.example.com/notification"
+   * @example "/notification"
    * @optional
    */
   notification_endpoint?: string | true;
