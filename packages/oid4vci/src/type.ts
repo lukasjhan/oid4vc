@@ -91,3 +91,52 @@ export type Oid4VciConfig = {
 
   credential_configurations_supported?: never;
 };
+
+export type CredentialConfiguration = {
+  format: string;
+  scope?: string;
+  cryptographic_binding_methods_supported?: string[];
+  credential_signing_alg_values_supported?: string[];
+  credential_definition?: {
+    type: string[];
+    '@context'?: string[];
+  };
+  doctype?: string;
+  claims?: Array<{
+    path: (string | null | number)[];
+    mandatory?: boolean;
+    display?: Array<{
+      name: string;
+      locale?: string;
+    }>;
+  }>;
+};
+
+export type IssuerMetadata = {
+  credential_issuer: string;
+  authorization_servers?: string[];
+  credential_endpoint: string;
+  nonce_endpoint?: string;
+  deferred_credential_endpoint?: string;
+  notification_endpoint?: string;
+  credential_response_encryption?: {
+    alg_values_supported: string[];
+    enc_values_supported: string[];
+    encryption_required?: boolean;
+  };
+  batch_credential_issuance?: {
+    batch_size: number;
+  };
+  signed_metadata?: string;
+  display?: Array<{
+    name?: string;
+    locale?: string;
+    logo?: {
+      uri: string;
+      alt_text?: string;
+    };
+  }>;
+  credential_configurations_supported: {
+    [key: string]: CredentialConfiguration;
+  };
+};

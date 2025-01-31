@@ -1,4 +1,4 @@
-import { Oid4VciConfig } from './type';
+import { IssuerMetadata, Oid4VciConfig } from './type';
 import { Router, Request, Response, NextFunction } from 'express';
 
 export class Oid4VciMiddleware {
@@ -12,7 +12,7 @@ export class Oid4VciMiddleware {
   }
 
   private validateConfig(config: Oid4VciConfig) {
-    if (!config.issuerMetadata.credential_issuer) {
+    if (!config.credential_issuer) {
       throw new TypeError('config.issuerMetadata.credential_issuer is missing');
     }
 
@@ -23,7 +23,12 @@ export class Oid4VciMiddleware {
     this.router.get(
       '/.well-known/openid-credential-issuer',
       (req: Request, res: Response) => {
-        res.json(this.config.issuerMetadata);
+        const config: IssuerMetadata = {
+          credential_issuer: this.config.credential_issuer,
+          credential_endpoint: this.config.credential_endpoint ?? '',
+          credential_configurations_supported: {},
+        };
+        res.set('Cache-Control', 'no-store').json(config);
       },
     );
   }
