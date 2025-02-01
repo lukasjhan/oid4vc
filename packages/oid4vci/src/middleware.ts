@@ -82,7 +82,7 @@ export class Oid4VciMiddleware {
         async (req: Request, res: Response) => {
           try {
             const ret = await handler(req);
-            res.status(200).json(ret);
+            res.set('Cache-Control', 'no-store').status(200).json(ret);
           } catch (err) {
             res.status(500).json(err);
           }
