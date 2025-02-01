@@ -74,6 +74,21 @@ export class Oid4VciMiddleware {
         }
       },
     );
+
+    if (config.nonce_handler) {
+      const handler = config.nonce_handler;
+      this.router.post(
+        `/${DEFAULT_PATH.NONCE}`,
+        async (req: Request, res: Response) => {
+          try {
+            const ret = await handler(req);
+            res.status(200).json(ret);
+          } catch (err) {
+            res.status(500).json(err);
+          }
+        },
+      );
+    }
   }
 
   public getRouter(): Router {
