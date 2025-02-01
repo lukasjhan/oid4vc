@@ -15,13 +15,13 @@ export type Oid4VciConfig = {
    */
   authorization_servers?: string[];
 
-  credential_endpoint?: string;
+  credential_handler: (req: any) => Promise<any>;
 
-  nonce_endpoint?: string | true;
+  nonce_handler?: (req: any) => Promise<any>;
 
-  deferred_credential_endpoint?: string | true;
+  deferred_credential_handler?: (req: any) => Promise<any>;
 
-  notification_endpoint?: string | true;
+  notification_handler?: (req: any) => Promise<any>;
 
   credential_response_encryption?: never;
 

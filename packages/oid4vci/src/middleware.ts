@@ -1,5 +1,6 @@
 import { IssuerMetadata, Oid4VciConfig } from './type';
 import { Router, Request, Response } from 'express';
+import { URL } from 'url';
 
 export class Oid4VciMiddleware {
   private router: Router;
@@ -12,17 +13,27 @@ export class Oid4VciMiddleware {
   }
 
   private validateConfig(config: Oid4VciConfig): IssuerMetadata {
-    if (!config.credential_issuer) {
-      throw new TypeError('config.issuerMetadata.credential_issuer is missing');
+    const { credential_issuer, credential_handler } = config;
+
+    if (!credential_issuer) {
+      throw new TypeError('config.credential_issuer is missing');
+    }
+
+    if (!credential_handler) {
+      throw new TypeError('config.credential_handler is missing');
     }
 
     const metadata: IssuerMetadata = {
-      credential_issuer: config.credential_issuer,
-      credential_endpoint: config.credential_endpoint ?? '',
+      credential_issuer: credential_issuer,
+      credential_endpoint: this.appendUrl(credential_issuer, 'credential'),
       credential_configurations_supported: {},
     };
 
     return metadata;
+  }
+
+  private appendUrl(baseUrl: string, path: string): string {
+    return new URL(path, baseUrl).href;
   }
 
   private setupRoutes(config: Oid4VciConfig) {
@@ -32,6 +43,15 @@ export class Oid4VciMiddleware {
         res.set('Cache-Control', 'no-store').json(this.metadata);
       },
     );
+
+    this.router.post('/credential', async (req: Request, res: Response) => {
+      try {
+        const ret = await config.credential_handler(req);
+        res.json(ret);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    });
   }
 
   public getRouter(): Router {
