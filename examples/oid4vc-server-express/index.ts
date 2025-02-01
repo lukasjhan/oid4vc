@@ -10,9 +10,9 @@ const middleware = new Oid4VciMiddleware({
       credential: 'credential',
     };
   },
-  nonce_handler: async (req) => {
+  nonce_handler: (req) => {
     return {
-      nonce: 'nonce',
+      c_nonce: 'nonce',
     };
   },
   deferred_credential_handler: async (req) => {

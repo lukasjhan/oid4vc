@@ -1,5 +1,7 @@
 import { JsonWebKey } from 'crypto';
 
+export type OrPromise<T> = T | Promise<T>;
+
 export type Oid4VciConfig = {
   /**
    * The Credential Issuer's identifier, typically a URL
@@ -15,13 +17,13 @@ export type Oid4VciConfig = {
    */
   authorization_servers?: string[];
 
-  credential_handler: (req: any) => Promise<any>;
+  credential_handler: (req: any) => OrPromise<any>;
 
-  nonce_handler?: (req: any) => Promise<any>;
+  nonce_handler?: (req: any) => OrPromise<NonceResponse>;
 
-  deferred_credential_handler?: (req: any) => Promise<any>;
+  deferred_credential_handler?: (req: any) => OrPromise<any>;
 
-  notification_handler?: (req: any) => Promise<any>;
+  notification_handler?: (req: any) => OrPromise<any>;
 
   credential_response_encryption?: never;
 
@@ -48,6 +50,10 @@ export type Oid4VciConfig = {
   }>;
 
   credential_configurations_supported?: never;
+};
+
+export type NonceResponse = {
+  c_nonce: string;
 };
 
 // TODO: fix
