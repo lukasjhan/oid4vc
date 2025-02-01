@@ -13,7 +13,13 @@ export class Oid4VciMiddleware {
   }
 
   private validateConfig(config: Oid4VciConfig): IssuerMetadata {
-    const { credential_issuer, credential_handler } = config;
+    const {
+      credential_issuer,
+      credential_handler,
+      nonce_handler,
+      deferred_credential_handler,
+      notification_handler,
+    } = config;
 
     if (!credential_issuer) {
       throw new TypeError('config.credential_issuer is missing');
@@ -29,6 +35,15 @@ export class Oid4VciMiddleware {
         credential_issuer,
         DEFAULT_PATH.CREDENTIAL,
       ),
+      nonce_endpoint: nonce_handler
+        ? this.appendUrl(credential_issuer, DEFAULT_PATH.NONCE)
+        : undefined,
+      deferred_credential_endpoint: deferred_credential_handler
+        ? this.appendUrl(credential_issuer, DEFAULT_PATH.DEFERRED_CREDENTIAL)
+        : undefined,
+      notification_endpoint: notification_handler
+        ? this.appendUrl(credential_issuer, DEFAULT_PATH.NOTIFICATION)
+        : undefined,
       credential_configurations_supported: {},
     };
 
