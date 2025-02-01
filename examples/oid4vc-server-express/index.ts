@@ -4,8 +4,11 @@ import { Oid4VciMiddleware } from '@oid4vc/oid4vci';
 const app = express();
 
 const middleware = new Oid4VciMiddleware({
-  issuerMetadata: {
-    credential_issuer: 'https://issuer.example.com',
+  credential_issuer: 'http://localhost:3000',
+  credential_handler: async (req) => {
+    return {
+      credential: 'credential',
+    };
   },
 });
 
