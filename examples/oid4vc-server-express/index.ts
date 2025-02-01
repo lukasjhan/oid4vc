@@ -10,6 +10,21 @@ const middleware = new Oid4VciMiddleware({
       credential: 'credential',
     };
   },
+  nonce_handler: async (req) => {
+    return {
+      nonce: 'nonce',
+    };
+  },
+  deferred_credential_handler: async (req) => {
+    return {
+      deferred_credential: 'deferred_credential',
+    };
+  },
+  notification_handler: async (req) => {
+    return {
+      notification: 'notification',
+    };
+  },
 });
 
 app.use(middleware.getRouter());
