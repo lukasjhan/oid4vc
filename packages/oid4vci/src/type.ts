@@ -98,3 +98,10 @@ export type IssuerMetadata = {
     [key: string]: any;
   };
 };
+
+export const DEFAULT_PATH = {
+  CREDENTIAL: 'credential',
+  NONCE: 'nonce',
+  DEFERRED_CREDENTIAL: 'deferred_credential',
+  NOTIFICATION: 'notification',
+};
