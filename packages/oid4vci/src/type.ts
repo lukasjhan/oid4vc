@@ -17,14 +17,17 @@ export type Oid4VciConfig = {
    */
   authorization_servers?: string[];
 
-  credential_handler: (req: any) => OrPromise<any>;
+  credential_handler: (req: any) => OrPromise<CredentialResponseDto>;
 
-  nonce_handler?: (req: any) => OrPromise<NonceResponse>;
+  nonce_handler?: () => OrPromise<NonceResponseDto>;
 
-  deferred_credential_handler?: (req: any) => OrPromise<any>;
+  deferred_credential_handler?: (
+    req: any,
+  ) => OrPromise<DeferredCredentialResponseDto>;
 
-  notification_handler?: (req: any) => OrPromise<any>;
+  notification_handler?: (dto: NotificationRequestDto) => OrPromise<void>;
 
+  // TODO: implement
   credential_response_encryption?: never;
 
   batch_credential_issuance?: number;
@@ -49,12 +52,37 @@ export type Oid4VciConfig = {
     };
   }>;
 
+  // TODO: implement
   credential_configurations_supported?: never;
 };
 
-export type NonceResponse = {
+export type NonceResponseDto = {
   c_nonce: string;
 };
+
+export type NotificationRequestDto = {
+  notification_id: string;
+  event: string;
+};
+
+export type DeferredCredentialRequestDto = {
+  transaction_id: string;
+};
+
+export type DeferredCredentialResponseDto = {
+  credentials: Array<{ credential: string | Record<string, unknown> }>;
+  notification_id?: string;
+};
+
+export type CredentialResponseDto =
+  | {
+      credentials: Array<{ credential: string | Record<string, unknown> }>;
+      notification_id?: string;
+    }
+  | {
+      transaction_id: string;
+      notification_id?: string;
+    };
 
 // TODO: fix
 export type CredentialConfiguration = {

@@ -1,4 +1,9 @@
-import { DEFAULT_PATH, IssuerMetadata, Oid4VciConfig } from './type';
+import {
+  DEFAULT_PATH,
+  IssuerMetadata,
+  NotificationRequestDto,
+  Oid4VciConfig,
+} from './type';
 import express, { Router, Request, Response } from 'express';
 import { URL } from 'url';
 
@@ -71,7 +76,8 @@ export class Oid4VciMiddleware {
       async (req: Request, res: Response) => {
         try {
           const ret = await config.credential_handler(req);
-          res.json(ret);
+          const status = 'transaction_id' in ret ? 202 : 200;
+          res.set('Cache-Control', 'no-store').status(status).json(ret);
         } catch (err) {
           res.status(500).json(err);
         }
@@ -84,7 +90,7 @@ export class Oid4VciMiddleware {
         `/${DEFAULT_PATH.NONCE}`,
         async (req: Request, res: Response) => {
           try {
-            const ret = await handler(req);
+            const ret = await handler();
             res.set('Cache-Control', 'no-store').status(200).json(ret);
           } catch (err) {
             res.status(500).json(err);
@@ -98,6 +104,7 @@ export class Oid4VciMiddleware {
       this.router.post(
         `/${DEFAULT_PATH.DEFERRED_CREDENTIAL}`,
         async (req: Request, res: Response) => {
+          // TODO: Authorization
           try {
             const ret = await handler(req);
             res.status(200).json(ret);
@@ -113,8 +120,10 @@ export class Oid4VciMiddleware {
       this.router.post(
         `/${DEFAULT_PATH.NOTIFICATION}`,
         async (req: Request, res: Response) => {
+          // TODO: validate request
+          const dto: NotificationRequestDto = req.body;
           try {
-            await handler(req);
+            await handler(dto);
             res.sendStatus(204);
           } catch (err) {
             res.status(500).json(err);
