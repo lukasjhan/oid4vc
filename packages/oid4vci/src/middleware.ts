@@ -45,6 +45,7 @@ export class Oid4VciMiddleware {
         ? this.appendUrl(credential_issuer, DEFAULT_PATH.NOTIFICATION)
         : undefined,
       credential_configurations_supported: {},
+      display: config.display,
     };
 
     return metadata;

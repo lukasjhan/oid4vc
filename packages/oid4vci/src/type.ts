@@ -27,6 +27,7 @@ export type Oid4VciConfig = {
 
   batch_credential_issuance?: number;
 
+  // TODO: implement
   signed_metadata_key?:
     | {
         alg: 'HS256';
@@ -37,14 +38,14 @@ export type Oid4VciConfig = {
         key: JsonWebKey;
       };
 
-  display?: {
+  display?: Array<{
     name?: string;
     locale?: string;
     logo?: {
       uri: string;
       alt_text?: string;
     };
-  };
+  }>;
 
   credential_configurations_supported?: never;
 };
