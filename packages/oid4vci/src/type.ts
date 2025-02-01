@@ -22,7 +22,7 @@ export type Oid4VciConfig = {
   nonce_handler?: () => OrPromise<NonceResponseDto>;
 
   deferred_credential_handler?: (
-    req: any,
+    req: DeferredCredentialRequestDto,
   ) => OrPromise<DeferredCredentialResponseDto>;
 
   notification_handler?: (dto: NotificationRequestDto) => OrPromise<void>;

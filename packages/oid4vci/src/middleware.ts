@@ -1,5 +1,6 @@
 import {
   DEFAULT_PATH,
+  DeferredCredentialRequestDto,
   IssuerMetadata,
   NotificationRequestDto,
   Oid4VciConfig,
@@ -105,8 +106,9 @@ export class Oid4VciMiddleware {
         `/${DEFAULT_PATH.DEFERRED_CREDENTIAL}`,
         async (req: Request, res: Response) => {
           // TODO: Authorization
+          const dto: DeferredCredentialRequestDto = req.body;
           try {
-            const ret = await handler(req);
+            const ret = await handler(dto);
             res.status(200).json(ret);
           } catch (err) {
             res.status(500).json(err);
