@@ -15,61 +15,18 @@ export type Oid4VciConfig = {
    */
   authorization_servers?: string[];
 
-  /**
-   * The URL of the Credential Issuer's Credential Endpoint
-   * If not provided, use default endpoint: /credential
-   * @example "/credential"
-   * @optional
-   */
   credential_endpoint?: string;
 
-  /**
-   * The URL of the Credential Issuer's Nonce Endpoint
-   * If not provided, the nonce endpoint is not included
-   * If true, the default nonce endpoint is used: /nonce
-   * @example "/nonce"
-   * @optional
-   */
   nonce_endpoint?: string | true;
 
-  /**
-   * The URL of the Credential Issuer's Deferred Credential Endpoint
-   * If not provided, the deferred credential endpoint is not included
-   * If true, the default deferred credential endpoint is used: /deferred-credential
-   * @example "/deferred-credential"
-   * @optional
-   */
   deferred_credential_endpoint?: string | true;
 
-  /**
-   * The URL of the Credential Issuer's Notification Endpoint
-   * If not provided, the notification endpoint is not included
-   * If true, the default notification endpoint is used: /notification
-   * @example "/notification"
-   * @optional
-   */
   notification_endpoint?: string | true;
 
-  /**
-   * TODO: implement
-   */
   credential_response_encryption?: never;
 
-  /**
-   * The maximum number of credentials that can be issued in a batch
-   * If not provided, batch issuance is not supported
-   * If 0 or less, batch issuance is disabled
-   * @example 5
-   * @optional
-   */
   batch_credential_issuance?: number;
 
-  /**
-   * The key used to sign the metadata
-   * If not provided, the metadata is not signed
-   * @example {"alg": "HS256", "secret": "secret"}
-   * @optional
-   */
   signed_metadata_key?:
     | {
         alg: 'HS256';
@@ -92,6 +49,7 @@ export type Oid4VciConfig = {
   credential_configurations_supported?: never;
 };
 
+// TODO: fix
 export type CredentialConfiguration = {
   format: string;
   scope?: string;
@@ -137,6 +95,6 @@ export type IssuerMetadata = {
     };
   }>;
   credential_configurations_supported: {
-    [key: string]: CredentialConfiguration;
+    [key: string]: any;
   };
 };
