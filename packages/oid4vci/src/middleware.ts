@@ -1,5 +1,5 @@
 import { DEFAULT_PATH, IssuerMetadata, Oid4VciConfig } from './type';
-import { Router, Request, Response } from 'express';
+import express, { Router, Request, Response } from 'express';
 import { URL } from 'url';
 
 export class Oid4VciMiddleware {
@@ -56,6 +56,9 @@ export class Oid4VciMiddleware {
   }
 
   private setupRoutes(config: Oid4VciConfig) {
+    this.router.use(express.json());
+    this.router.use(express.urlencoded({ extended: true }));
+
     this.router.get(
       '/.well-known/openid-credential-issuer',
       (req: Request, res: Response) => {
@@ -83,6 +86,36 @@ export class Oid4VciMiddleware {
           try {
             const ret = await handler(req);
             res.set('Cache-Control', 'no-store').status(200).json(ret);
+          } catch (err) {
+            res.status(500).json(err);
+          }
+        },
+      );
+    }
+
+    if (config.deferred_credential_handler) {
+      const handler = config.deferred_credential_handler;
+      this.router.post(
+        `/${DEFAULT_PATH.DEFERRED_CREDENTIAL}`,
+        async (req: Request, res: Response) => {
+          try {
+            const ret = await handler(req);
+            res.status(200).json(ret);
+          } catch (err) {
+            res.status(500).json(err);
+          }
+        },
+      );
+    }
+
+    if (config.notification_handler) {
+      const handler = config.notification_handler;
+      this.router.post(
+        `/${DEFAULT_PATH.NOTIFICATION}`,
+        async (req: Request, res: Response) => {
+          try {
+            await handler(req);
+            res.sendStatus(204);
           } catch (err) {
             res.status(500).json(err);
           }
