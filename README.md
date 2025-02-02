@@ -18,12 +18,14 @@ Simple, batteries-included Typescript implementation of OpenID4VCI and OpenID4VP
 
 ## 📦 Packages
 
-| Package                   | Description                          | Version                                                                                                                                 |
-| ------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `@oid4vc/core`            | Core implementations and types       | [![npm](https://img.shields.io/npm/v/@oid4vc/core?style=flat-square)](https://www.npmjs.com/package/@oid4vc/core)                       |
-| `@oid4vc/express-oid4vci` | Express.js middleware for OpenID4VCI | [![npm](https://img.shields.io/npm/v/@oid4vc/express-oid4vci?style=flat-square)](https://www.npmjs.com/package/@oid4vc/express-oid4vci) |
-| `@oid4vc/nestjs-oid4vci`  | NestJS module for OpenID4VCI         | [![npm](https://img.shields.io/npm/v/@oid4vc/nestjs-oid4vci?style=flat-square)](https://www.npmjs.com/package/@oid4vc/nestjs-oid4vci)   |
-| `@oid4vc/client`          | Client implementation using Axios    | [![npm](https://img.shields.io/npm/v/@oid4vc/client?style=flat-square)](https://www.npmjs.com/package/@oid4vc/client)                   |
+| Package                  | Description                          | Version                                                                                                                               |
+| ------------------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `@oid4vc/oid4vci`        | Express.js middleware for OpenID4VCI | [![npm](https://img.shields.io/npm/v/@oid4vc/express-oid4vci?style=flat-square)](https://www.npmjs.com/package/@oid4vc/oid4vci)       |
+| `@oid4vc/oid4vci-nestjs` | NestJS module for OpenID4VCI         | [![npm](https://img.shields.io/npm/v/@oid4vc/nestjs-oid4vci?style=flat-square)](https://www.npmjs.com/package/@oid4vc/oid4vci-nestjs) |
+| `@oid4vc/oid4vci-client` | OpenID4VCI Client                    | [![npm](https://img.shields.io/npm/v/@oid4vc/oid4vci-client?style=flat-square)](https://www.npmjs.com/package/@oid4vc/oid4vci-client) |
+| `@oid4vc/oid4vp`         | Express.js middleware for OpenID4VP  | [![npm](https://img.shields.io/npm/v/@oid4vc/oid4vp?style=flat-square)](https://www.npmjs.com/package/@oid4vc/oid4vp)                 |
+| `@oid4vc/oid4vp-nestjs`  | NestJS module for OpenID4VP          | [![npm](https://img.shields.io/npm/v/@oid4vc/oid4vp-nestjs?style=flat-square)](https://www.npmjs.com/package/@oid4vc/oid4vp-nestjs)   |
+| `@oid4vc/oid4vp-client`  | OpenID4VP Client                     | [![npm](https://img.shields.io/npm/v/@oid4vc/oid4vp-client?style=flat-square)](https://www.npmjs.com/package/@oid4vc/oid4vp-client)   |
 
 ## 🚀 Quick Start
 
