@@ -27,6 +27,10 @@ export type Oid4VciConfig = {
 
   notification_handler?: (dto: NotificationRequestDto) => OrPromise<void>;
 
+  credential_offer_handler?: (
+    offerId: string,
+  ) => OrPromise<CredentialOfferByValue>;
+
   // TODO: implement
   credential_response_encryption?: never;
 
@@ -139,4 +143,36 @@ export const DEFAULT_PATH = {
   NONCE: 'nonce',
   DEFERRED_CREDENTIAL: 'deferred_credential',
   NOTIFICATION: 'notification',
+  CREDENTIAL_OFFER: 'credential-offer',
+};
+
+export type CredentialOfferByRef = {
+  credential_offer_uri: string;
+};
+
+export type CredentialOfferByValue = {
+  credential_issuer: string;
+  credential_configuration_ids: string[];
+  grants?: Grant;
+};
+
+export type Grant = AuthGrant | PreAuthGrant;
+
+export type AuthGrant = {
+  authorization_code: {
+    issuer_state?: string;
+    authorization_server?: string;
+  };
+};
+
+export type PreAuthGrant = {
+  'urn:ietf:params:oauth:grant-type:pre-authorized_code': {
+    'pre-authorized_code': string;
+    tx_code?: {
+      input_mode?: 'numeric' | 'text';
+      length?: number;
+      description?: string;
+    };
+    authorization_server?: string;
+  };
 };

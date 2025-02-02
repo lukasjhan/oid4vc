@@ -1,4 +1,6 @@
 import {
+  CredentialOfferByRef,
+  CredentialOfferByValue,
   DEFAULT_PATH,
   DeferredCredentialRequestDto,
   IssuerMetadata,
@@ -133,9 +135,45 @@ export class Oid4VciMiddleware {
         },
       );
     }
+
+    if (config.credential_offer_handler) {
+      const handler = config.credential_offer_handler;
+      this.router.get(
+        `/${DEFAULT_PATH.CREDENTIAL_OFFER}/:offerId`,
+        async (req: Request, res: Response) => {
+          const offerId = req.params.offerId;
+          try {
+            const ret = await handler(offerId);
+            res.set('Cache-Control', 'no-store').status(200).json(ret);
+          } catch (err) {
+            res.status(500).json(err);
+          }
+        },
+      );
+    }
   }
 
   public getRouter(): Router {
     return this.router;
+  }
+}
+
+export class CredentialOfferUri {
+  constructor(
+    private readonly protocolName: string = 'openid-credential-offer',
+  ) {}
+
+  public byRef(data: CredentialOfferByRef) {
+    const params = new URLSearchParams({
+      credential_offer_uri: data.credential_offer_uri,
+    });
+    return `${this.protocolName}://?${params.toString()}`;
+  }
+
+  public byValue(data: CredentialOfferByValue) {
+    const params = new URLSearchParams({
+      credential_offer: JSON.stringify(data),
+    });
+    return `${this.protocolName}://?${params.toString()}`;
   }
 }
