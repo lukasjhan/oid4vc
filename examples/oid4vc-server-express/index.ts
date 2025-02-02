@@ -5,25 +5,31 @@ const app = express();
 
 const middleware = new Oid4VciMiddleware({
   credential_issuer: 'http://localhost:3000',
-  credential_handler: async (req) => {
+  credential_handler: async () => {
     return {
-      credential: 'credential',
+      credentials: [
+        {
+          credential: 'credential',
+        },
+      ],
     };
   },
-  nonce_handler: (req) => {
+  nonce_handler: () => {
     return {
       c_nonce: 'nonce',
     };
   },
-  deferred_credential_handler: async (req) => {
+  deferred_credential_handler: async () => {
     return {
-      deferred_credential: 'deferred_credential',
+      credentials: [
+        {
+          credential: 'credential',
+        },
+      ],
     };
   },
-  notification_handler: async (req) => {
-    return {
-      notification: 'notification',
-    };
+  notification_handler: async (dto) => {
+    console.log('notification', dto);
   },
 });
 
