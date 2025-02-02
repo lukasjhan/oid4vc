@@ -17,7 +17,9 @@ export type Oid4VciConfig = {
    */
   authorization_servers?: string[];
 
-  credential_handler: (req: any) => OrPromise<CredentialResponseDto>;
+  credential_handler: (
+    dto: CredentialRequestDto,
+  ) => OrPromise<CredentialResponseDto>;
 
   nonce_handler?: () => OrPromise<NonceResponseDto>;
 
@@ -208,4 +210,48 @@ export type TokenResponseDto = {
     credential_configuration_id: string;
     credential_identifier: string[];
   };
+};
+
+export type CredentialRequestDto =
+  | CredentialRequestIdentifier
+  | CredentialRequestByConfigurationId;
+
+export type CredentialRequestIdentifier = {
+  credential_identifier: string;
+  proof?: Proof;
+  proofs: Proof[];
+  credential_response_encryption?: {
+    jwk: JsonWebKey;
+    alg: string;
+    enc: string;
+  };
+};
+
+export type CredentialRequestByConfigurationId = {
+  credential_configuration_id: string;
+  proof?: Proof;
+  proofs: Proof[];
+  credential_response_encryption?: {
+    jwk: JsonWebKey;
+    alg: string;
+    enc: string;
+  };
+};
+
+export type Proof = JwtProof | LdpVpProof | AttestationProof;
+
+export type JwtProof = {
+  proof_type: 'jwt';
+  jwt: string;
+};
+
+export type LdpVpProof = {
+  proof_type: 'ldp_vp';
+  // TODO: define type
+  ldp_vp: Record<string, unknown>;
+};
+
+export type AttestationProof = {
+  proof_type: 'attestation';
+  attestation: string;
 };

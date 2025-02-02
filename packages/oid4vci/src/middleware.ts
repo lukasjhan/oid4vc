@@ -1,6 +1,7 @@
 import {
   CredentialOfferByRef,
   CredentialOfferByValue,
+  CredentialRequestDto,
   DEFAULT_PATH,
   DeferredCredentialRequestDto,
   IssuerMetadata,
@@ -79,7 +80,10 @@ export class Oid4VciMiddleware {
       `/${DEFAULT_PATH.CREDENTIAL}`,
       async (req: Request, res: Response) => {
         try {
-          const ret = await config.credential_handler(req);
+          // TODO: Authorization
+          // TODO: Validation
+          const dto: CredentialRequestDto = req.body;
+          const ret = await config.credential_handler(dto);
           const status = 'transaction_id' in ret ? 202 : 200;
           res.set('Cache-Control', 'no-store').status(status).json(ret);
         } catch (err) {
