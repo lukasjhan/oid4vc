@@ -48,5 +48,24 @@
       "cjs",
       "esm"
     ]
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.0.7",
+    "@nestjs/core": "^11.0.7",
+    "@nestjs/testing": "^11.0.7",
+    "@swc/core": "^1.10.12",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.10.2",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "dependencies": {
+    "@oid4vc/oid4vci": "workspace:*"
   }
 }
