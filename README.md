@@ -1,6 +1,6 @@
 # OID4VC 🔐
 
-Simple, batteries-included Typescript implementation of OpenID4VCI and OpenID4VP standards.
+Simple, batteries-included Typescript implementation of OpenID4VCI and OpenID4VP server and client.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
