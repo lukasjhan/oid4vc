@@ -6,6 +6,7 @@ import {
   IssuerMetadata,
   NotificationRequestDto,
   Oid4VciConfig,
+  TokenDto,
 } from './type';
 import express, { Router, Request, Response } from 'express';
 import { URL } from 'url';
@@ -144,6 +145,23 @@ export class Oid4VciMiddleware {
           const offerId = req.params.offerId;
           try {
             const ret = await handler(offerId);
+            res.set('Cache-Control', 'no-store').status(200).json(ret);
+          } catch (err) {
+            res.status(500).json(err);
+          }
+        },
+      );
+    }
+
+    if (config.token_handler) {
+      const handler = config.token_handler;
+      this.router.post(
+        `/${DEFAULT_PATH.TOKEN}`,
+        async (req: Request, res: Response) => {
+          // TODO: validate request
+          const dto: TokenDto = req.body;
+          try {
+            const ret = await handler(dto);
             res.set('Cache-Control', 'no-store').status(200).json(ret);
           } catch (err) {
             res.status(500).json(err);

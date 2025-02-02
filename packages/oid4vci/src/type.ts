@@ -31,6 +31,8 @@ export type Oid4VciConfig = {
     offerId: string,
   ) => OrPromise<CredentialOfferByValue>;
 
+  token_handler?: (dto: TokenDto) => OrPromise<any>;
+
   // TODO: implement
   credential_response_encryption?: never;
 
@@ -144,6 +146,7 @@ export const DEFAULT_PATH = {
   DEFERRED_CREDENTIAL: 'deferred_credential',
   NOTIFICATION: 'notification',
   CREDENTIAL_OFFER: 'credential-offer',
+  TOKEN: 'token',
 };
 
 export type CredentialOfferByRef = {
@@ -174,5 +177,35 @@ export type PreAuthGrant = {
       description?: string;
     };
     authorization_server?: string;
+  };
+};
+
+export type TokenDto = TokenAuthDto | TokenPreAuthDto;
+
+export type TokenAuthDto = {
+  grant_type: 'authorization_code';
+  code: string;
+  code_verifier?: string;
+  redirect_uri: string;
+  client_assertion_type?: string;
+  client_assertion?: string;
+  authorization_details?: string;
+};
+
+export type TokenPreAuthDto = {
+  grant_type: 'pre-authorized_code';
+  pre_authorized_code: string;
+  tx_code?: string;
+  authorization_details?: string;
+};
+
+export type TokenResponseDto = {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  authorization_details?: {
+    type: string;
+    credential_configuration_id: string;
+    credential_identifier: string[];
   };
 };
